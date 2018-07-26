@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             xmlns:local="clr-namespace:LACare;assembly=LACare"
+             xmlns:ire="clr-namespace:LACare.Extensions"
+             xmlns:converter="clr-namespace:LACare"
+             xmlns:control="clr-namespace:LACare"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="Page"
+             x:Class="LACare.HomePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ValueToEmptyConverter x:Key="valueToEmptyConverter" />
+            <converter:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:HomeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#2a2a2a">
+            <StackLayout VerticalOptions="Fill" Orientation="Horizontal" Padding="10">
+                <Image Source="{ire:ImageResource LACare.Images.shedule.png}" WidthRequest="176" HeightRequest="66"/>
+            </StackLayout>
+            <StackLayout VerticalOptions="Fill" Orientation="Horizontal" Padding="10">
+                <StackLayout VerticalOptions="Fill" Orientation="Vertical" Padding="0,10,10,0">
+                    <Label Text="{Binding Date,StringFormat='{0:MMMM yyyy}'}"                          
+                           TextColor="#535353" 
+                           IsVisible="{Binding Date,Converter={StaticResource valueToEmptyConverter}}"
+                           FontSize="15" Margin="5,5,0,0"/>
+                    <Label Text="{Binding Date, StringFormat= '{0:dd}'}" TextColor="#2196F3" FontSize="50"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Image HeightRequest="50" WidthRequest="50" Source="{ire:ImageResource LACare.Images.prev.png}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+			                                    Command="{Binding Path=BindingContext.PreviousCommand, Mode=TwoWay, Source={x:Reference Page}}"
+			                                    CommandParameter="{Binding .}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Image HeightRequest="50" WidthRequest="50" Source="{ire:ImageResource LACare.Images.next.png}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer
+			                                    Command="{Binding Path=BindingContext.NextCommand, Mode=TwoWay, Source={x:Reference Page}}"
+			                                    CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <control:HorizontalListview 
+                        Orientation="Horizontal" 
+                        x:Name="listview" 
+                        ItemsSource="{Binding ListofDates,Mode=TwoWay}"
+                        SelectedCommand="{Binding SelectDateCommand}">
+                        <control:HorizontalListview.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Vertical" Padding="10">
+                                        <Label Text="{Binding Date, StringFormat= '{0:MMMM yyyy}'}" 
+                                                IsVisible="{Binding Date,Converter={StaticResource valueToEmptyConverter}}"
+                           TextColor="#535353" 
+                           FontSize="15" Margin="5,5,0,0"/>
+                                        <Label Text="{Binding Date, StringFormat= '{0:dd}'}" TextColor="#FFFFFF" FontSize="50"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </control:HorizontalListview.ItemTemplate>
+                    </control:HorizontalListview>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout VerticalOptions="Fill" Padding="10">
+                <Image Source="{ire:ImageResource LACare.Images.list.png}" WidthRequest="300" HeightRequest="100"/>
+                <Image Source="{ire:ImageResource LACare.Images.list.png}" WidthRequest="300" HeightRequest="100"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+             xmlns:ire="clr-namespace:LACare.Extensions"  
+             x:Class="LACare.App">
+    <Application.Resources>
+        <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <ControlTemplate x:Key="MainPageTemplate">
+                <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <BoxView BackgroundColor="#FFFFFF" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5"/>
+                    <Image Source="{ire:ImageResource LACare.Images.logo.png}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" />
+                    <Image Source="{ire:ImageResource LACare.Images.logout.png}" Grid.Column="4" Grid.Row="0" Grid.ColumnSpan="1"/>
+                    <ContentPresenter VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5"/>
+                </Grid>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
